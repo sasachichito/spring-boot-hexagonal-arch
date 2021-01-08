@@ -1,0 +1,54 @@
+openapi: "3.0.3"
+info:
+  title: OpenAPI Sample Project
+  version: "1.0"
+servers:
+  - url: http://localhost:8085
+
+paths:
+  /users:
+    post:
+      description: ユーザーを登録する
+      summary: ユーザー登録
+      requestBody:
+        required: true
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/UserModel"
+      responses:
+        "201":
+          description: "登録したユーザー"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/UserModel"
+        "500":
+          description: "エラー"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ErrModel"
+
+components:
+  schemas:
+    UserModel:
+      type: object
+      properties:
+        userId:
+          type: integer
+        lastName:
+          type: string
+        firstName:
+          type: string
+        mailAddress:
+          type: string
+    ErrModel:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string

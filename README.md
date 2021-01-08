@@ -1,2 +1,2 @@
 # spring-boot-hexagonal-arch
-Spring Boot × ヘキサゴナルアーキテクチャ サンプル
+Spring Boot × ヘキサゴナルアーキテクチャ × Open API

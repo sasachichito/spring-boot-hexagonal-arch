@@ -1,0 +1,59 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.1'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+	id 'org.openapi.generator' version '4.3.1'
+}
+
+// For Open API : Generated Codeの出力先
+ext {
+	openApiOutputDir = "$rootDir/build/generated/openapi"
+}
+// For Open API : Generated Codeをクラスパスに追加
+sourceSets.main.java.srcDirs += ["$openApiOutputDir/src/main/java"]
+
+group = 'com.github.sasachichito'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// For Open API : Generated Codeの依存関係
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.openapitools:jackson-databind-nullable:0.2.1'
+	compileOnly 'io.swagger:swagger-annotations:1.6.2'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+// For Open API : Code Generation Task
+openApiGenerate {
+	generatorName = 'spring'
+	inputSpec = "$rootDir/openapi/spec.yml"
+	outputDir = "$openApiOutputDir"
+	apiPackage = 'org.openapi.example.api'
+	modelPackage = 'org.openapi.example.model'
+	configOptions = [
+			dateLibrary: 'java11',
+			interfaceOnly: 'true',
+			skipDefaultInterface: 'true',
+	]
+}
+
+// For Open API : Java Compile前にCode Generation Taskを実行
+compileJava.dependsOn tasks.openApiGenerate
