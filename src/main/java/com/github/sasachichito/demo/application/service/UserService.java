@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public User create(User user) {
-        this.userRepository.addUser(user);
-        return user;
-    }
+  public User create(User user) {
+    this.userRepository.addUser(user);
+    return user;
+  }
 }

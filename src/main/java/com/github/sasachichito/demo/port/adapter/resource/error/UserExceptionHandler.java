@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class UserExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    ErrModel handle(IllegalArgumentException e) {
-        ErrModel err = new ErrModel();
-        err.code("D-001");
-        err.message(e.getMessage());
-        return err;
-    }
+  @ExceptionHandler(IllegalArgumentException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  ErrModel handle(IllegalArgumentException e) {
+    ErrModel err = new ErrModel();
+    err.code("D-001");
+    err.message(e.getMessage());
+    return err;
+  }
 }
